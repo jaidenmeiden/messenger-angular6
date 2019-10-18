@@ -1,6 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+
+// Se importan pipes
+import { SearchPipe } from './pipes/search.pipe';
 
 // Se importan componentes
 import { AppComponent } from './app.component';
@@ -22,6 +26,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    SearchPipe,
     HomeComponent,
     LoginComponent,
     ProfileComponent,
@@ -30,6 +35,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],

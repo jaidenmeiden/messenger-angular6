@@ -12,6 +12,9 @@ import { environment } from '../environments/environment';
 // Se importan pipes
 import { SearchPipe } from './pipes/search.pipe';
 
+// Se importa guard
+import {AuthenticationGuard} from "./guards/authentication.guard";
+
 // Se importan componentes
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -23,11 +26,11 @@ import { SettingsComponent } from './components/settings/settings.component';
 
 // Rutas
 const appRoutes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'home', component: HomeComponent},
+  {path: '', component: HomeComponent, canActivate: [AuthenticationGuard]},
+  {path: 'home', component: HomeComponent, canActivate: [AuthenticationGuard]},
   {path: 'login', component: LoginComponent},
-  {path: 'conversation/:uid', component: ConversationComponent},
-  {path: 'profile', component: ProfileComponent}
+  {path: 'conversation/:uid', component: ConversationComponent, canActivate: [AuthenticationGuard]},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthenticationGuard]}
 ];
 
 @NgModule({

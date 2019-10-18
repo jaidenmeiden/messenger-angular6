@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from "../../services/authentication.service";
 import {UserFirebaseService} from "../../services/user-firebase.service";
 import {User} from "../../interfaces/user";
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-profile',
@@ -10,6 +11,8 @@ import {User} from "../../interfaces/user";
 })
 export class ProfileComponent implements OnInit {
   user: User;
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
 
   constructor(
     private userFirebaseService: UserFirebaseService,
@@ -28,6 +31,22 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+  }
+  imageLoaded() {
+    // show cropper
+  }
+  cropperReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
+    // show message
   }
 
   saveSettings() {

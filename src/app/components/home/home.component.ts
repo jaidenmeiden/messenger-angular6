@@ -14,6 +14,7 @@ import {UserService} from '../../services/user.service';
 export class HomeComponent implements OnInit {
 
   private users: User[];
+  private query: string;
 
   constructor(
     private userService: UserService

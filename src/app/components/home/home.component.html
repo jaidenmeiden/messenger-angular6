@@ -1,14 +1,51 @@
-<p>Amigos</p>
-<ng-container *ngFor="let user of users; let i = index">
-  <div *ngIf="user.friend">
-    <a routerLink="/conversation/{{user.uid}}">
-      {{(i + 1)}}. {{user.nick}} ({{user.status}})
-    </a>
+<div class="homeContainer">
+  <div class="whiteBorderGlassBox">
+    <div class="homeHeadContainer">
+      <div class="row">
+        <div class="col-md-auto">
+          <div class="avatarFrameonline">
+            <img src="assets/img/generic_avatar.png" id="homeAvatarPicture">
+          </div>
+        </div>
+        <div class="col">
+          <b>Eduardo</b>
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-link" id="dropdownBasic1" ngbDropdownToggle>Online</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button class="dropdown-item" (click)="setUserProperty('status', 'online')">Conectado</button>
+              <button class="dropdown-item" (click)="setUserProperty('status', 'away')">Ausente</button>
+              <button class="dropdown-item" (click)="setUserProperty('status', 'busy')">Ocupado</button>
+              <button class="dropdown-item" (click)="setUserProperty('status', 'appear_offline')">Desconectado</button>
+              <div class="dropdown-divider"></div>
+              <button (click)="logOut()" class="dropdown-item">Cerrar Sesión</button>
+            </div>
+          </div>
+          <br />
+          <span>< Escribe un mensaje Personal ></span>
+        </div>
+      </div>
+    </div>
   </div>
-</ng-container>
-<p>No agregados</p>
-<ng-container *ngFor="let user of users; let i = index">
-  <div *ngIf="!user.friend">
-    {{(i + 1)}}. {{user.nick}} ({{user.status}})
+  <div class="whiteContainerPadded marto15">
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Buscar un contacto o un número..." [(ngModel)]="query">
+      </div>
+      <div class="col-md-auto">
+        <img src="assets/img/logo_live_add.png" class="icon" (click)="open(content)"  />
+      </div>
+    </div>
+    <hr />
+    <div class="row" *ngIf="users">
+      <div class="col-md-12">
+        <fa name="chevron-down"></fa>
+        <b>Amigos ({{users.length}}/{{users.length}})</b>
+      </div>
+      <div class="col-md-12 contact-list-item" routerLink="/conversation/{{user.user_id}}" *ngFor="let user of users | search: query">
+        <img src="assets/img/logo_live_{{user.status || 'offline'}}.png" class="status">
+        <b>{{user.nick}}</b>
+        <small *ngIf="user.subnick"> - {{user.subnick}}</small>
+      </div>
+    </div>
   </div>
-</ng-container>
+</div>

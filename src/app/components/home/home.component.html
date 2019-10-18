@@ -1,5 +1,5 @@
-<ul>
-  <li *ngFor="let user of users">
-    {{user.nick}} ({{user.status}})
-  </li>
-</ul>
+<ng-container *ngFor="let user of users; let i = index">
+  <div *ngIf="user.friend">
+    {{(i + 1)}}. {{user.nick}} ({{user.status}})
+  </div>
+</ng-container>

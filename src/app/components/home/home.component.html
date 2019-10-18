@@ -39,9 +39,9 @@
     <div class="row" *ngIf="users">
       <div class="col-md-12">
         <span name="chevron-down"></span>
-        <b>Amigos ({{users.length}}/{{users.length}})</b>
+        <b *ngIf="users">Amigos ({{users.length}}/{{users.length}})</b>
       </div>
-      <div class="col-md-12 contact-list-item" routerLink="/conversation/{{user.user_id}}" *ngFor="let user of users | search: query">
+      <div class="col-md-12 contact-list-item" routerLink="/conversation/{{user.uid}}" *ngFor="let user of users | search: query">
         <img src="assets/img/logo_live_{{user.status || 'offline'}}.png" class="status">
         <b>{{user.nick}}</b>
         <small *ngIf="user.subnick"> - {{user.subnick}}</small>

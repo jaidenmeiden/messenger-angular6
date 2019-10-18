@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from "../../services/authentication.service";
-import {error} from "util";
+import {Router} from '@angular/router';
 import {UserFirebaseService} from "../../services/user-firebase.service";
 
 @Component({
@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   nick: string = null;
 
   constructor(
+    public router: Router,
     private authenticationService: AuthenticationService,
     private userFirebaseService: UserFirebaseService
   ) { }
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
       .then((data) => {
         alert('Loggueado correctamente!');
         console.log(data);
+        this.router.navigate(['home']);
       }).catch((error) => {
         alert('Ocurrio un error!');
         console.log(error);

@@ -5,7 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {User} from '../../interfaces/user';
 
 // Servicios
-import {UserService} from '../../services/user.service';
+import {UserFirebaseService} from "../../services/user-firebase.service";
 
 @Component({
   selector: 'app-conversation',
@@ -18,10 +18,15 @@ export class ConversationComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private userService: UserService
+    private userFirebaseService: UserFirebaseService,
   ) {
     this.friendId = this.activatedRoute.snapshot.params['uid'];
-    this.user = this.userService.getUserById(this.friendId);
+    this.userFirebaseService.getUserById(this.friendId).valueChanges()
+      .subscribe((data: User) => {
+        this.user = data;
+      }, (error) => {
+        console.log(error);
+      });
     console.log(this.user);
   }
 

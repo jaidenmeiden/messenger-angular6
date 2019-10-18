@@ -5,8 +5,8 @@ import {Router} from '@angular/router';
 import {User} from '../../interfaces/user';
 
 // Servicios
-import {UserService} from '../../services/user.service';
 import {AuthenticationService} from '../../services/authentication.service';
+import {UserFirebaseService} from "../../services/user-firebase.service";
 
 @Component({
   selector: 'app-home',
@@ -21,10 +21,15 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public router: Router,
-    private userService: UserService,
+    private userFirebaseService: UserFirebaseService,
     private authenticationService: AuthenticationService
   ) {
-    this.users = this.userService.getUsers();
+    this.userFirebaseService.getUsers().valueChanges()
+      .subscribe((data: User[]) => {
+        this.users = data;
+      }, (error) => {
+        console.log(error);
+      });
   }
 
   ngOnInit() {

@@ -21,8 +21,8 @@ export class UserService {
     return this.users;
   }
   getUserById(id) {
-    return this.users.find((u) => {
-      return u.uid = id;
+    return this.users.find((record) => {
+      return record.uid == id;
     });
   }
 }

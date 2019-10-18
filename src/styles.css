@@ -96,6 +96,12 @@
 .marto5 {
   margin-top: 5px;
 }
+.disblo {
+  display: block !important;
+}
+.pato45 {
+  padding-top: 45px;
+}
 .form-control {
   border: 2px solid #ced4da;
   border-radius: 0;

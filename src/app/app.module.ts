@@ -13,6 +13,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ConversationComponent } from './components/conversation/conversation.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 // Rutas
 const appRoutes: Routes = [
@@ -31,7 +32,8 @@ const appRoutes: Routes = [
     LoginComponent,
     ProfileComponent,
     ConversationComponent,
-    MenuComponent
+    MenuComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,8 @@ import {User} from '../../interfaces/user';
 
 // Servicios
 import {UserFirebaseService} from "../../services/user-firebase.service";
+import {ConversationService} from "../../services/conversation.service";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-conversation',
@@ -15,22 +17,47 @@ import {UserFirebaseService} from "../../services/user-firebase.service";
 export class ConversationComponent implements OnInit {
   private friendId: any;
   private user: User;
+  private friend: User;
+  private conversation_id: string;
+  private textMessage: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private userFirebaseService: UserFirebaseService,
+    private conversationService: ConversationService,
+    private authenticationService: AuthenticationService
   ) {
     this.friendId = this.activatedRoute.snapshot.params['uid'];
-    this.userFirebaseService.getUserById(this.friendId).valueChanges()
-      .subscribe((data: User) => {
-        this.user = data;
-      }, (error) => {
-        console.log(error);
-      });
-    console.log(this.user);
+    console.log(this.friendId);
+    this.authenticationService.getStatus().subscribe((session) => {
+      this.userFirebaseService.getUserById(session.uid).valueChanges()
+        .subscribe((user: User) => {
+            this.user = user;
+            this.userFirebaseService.getUserById(this.friendId).valueChanges()
+              .subscribe((data: User) => {
+                this.friend = data;
+                const ids = [this.user.uid, this.friend.uid].sort();
+                this.conversation_id = ids.join('|');
+              }, (error) => {
+                console.log(error);
+              });
+          });
+    });
   }
 
   ngOnInit() {
   }
 
+  sendMessage() {
+    const message = {
+      uid: this.conversation_id,
+      timestamp: Date.now(),
+      text: this.textMessage,
+      sender: this.user.uid,
+      receiver: this.friend.uid
+    };
+    this.conversationService.createConversation(message).then(() => {
+      this.textMessage = '';
+    });
+  }
 }

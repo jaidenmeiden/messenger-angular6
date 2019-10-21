@@ -1,0 +1,19 @@
+<ng-container *ngIf="opcion == 1; then thenBlock else elseBlock"></ng-container>
+<ng-template #thenBlock>
+  <div *ngIf="contact" routerLink="/conversation/{{contact.uid}}">
+    <img src="assets/img/logo_live_online.png" class="icon">
+    <b>{{contact.nick}}</b> - {{contact.subnick || 'No subnick'}}
+    <small>{{contact.email}}</small>
+  </div>
+</ng-template>
+<ng-template #elseBlock>
+  <div class="row">
+    <div class="col-md-3">
+      <img [src]="contact.avatar || 'assets/img/generic_avatar.png'" class="avatarImage img-fluid">
+    </div>
+    <div class="col-md-9">
+      <b>{{contact.nick}}</b>
+      <small> Te ha enviado esta solicitud</small>
+    </div>
+  </div>
+</ng-template>

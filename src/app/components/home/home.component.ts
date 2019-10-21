@@ -17,7 +17,6 @@ import {RequestsService} from '../../services/requests.service';
 })
 export class HomeComponent implements OnInit {
 
-  private friends: User[];
   private query: string = '';
   private friendEmail: string = '';
   private user: User;
@@ -29,15 +28,12 @@ export class HomeComponent implements OnInit {
     private modalService: NgbModal,
     private requestsService: RequestsService
   ) {
-    this.userFirebaseService.getUsers().valueChanges()
-      .subscribe((data: User[]) => {
-        this.friends = data;
-      }, (error) => {
-        console.log(error);
-      });
     this.authenticationService.getStatus().subscribe((status) => {
       this.userFirebaseService.getUserById(status.uid).valueChanges().subscribe((data: User) => {
         this.user = data;
+        if (this.user.friends) {
+          this.user.friends = Object.values(this.user.friends);
+        }
       });
     });
   }
@@ -48,6 +44,7 @@ export class HomeComponent implements OnInit {
   setUserProperty(property, status) {
 
   }
+
   logOut() {
     this.authenticationService.logOut().then(() => {
       alert('Sesión Cerrada');

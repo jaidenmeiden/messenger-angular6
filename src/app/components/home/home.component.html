@@ -36,16 +36,12 @@
       </div>
     </div>
     <hr />
-    <div class="row" *ngIf="friends">
+    <div class="row" *ngIf="user && user.friends">
       <div class="col-md-12">
         <span name="chevron-down"></span>
-        <b *ngIf="friends">Amigos ({{friends.length}}/{{friends.length}})</b>
+        <b *ngIf="user.friends">Amigos ({{user.friends.length}}/{{user.friends.length}})</b>
       </div>
-      <div class="col-md-12 contact-list-item" routerLink="/conversation/{{friend.uid}}" *ngFor="let friend of friends | search: query">
-        <img src="assets/img/logo_live_{{friend.status || 'offline'}}.png" class="status">
-        <b>{{friend.nick}}</b>
-        <small *ngIf="friend.subnick"> - {{friend.subnick}}</small>
-      </div>
+      <app-contact class="col-md-12" *ngFor="let user of user.friends" [uid]="user" [opcion]="1" ></app-contact>
     </div>
   </div>
 </div>

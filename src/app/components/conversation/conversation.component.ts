@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {AngularFireStorage} from "@angular/fire/storage";
+import {ImageCroppedEvent} from "ngx-image-cropper";
+import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 // Interfaces
 import {User} from '../../interfaces/user';
@@ -22,11 +25,21 @@ export class ConversationComponent implements OnInit {
   private textMessage: string;
   conversation: any[];
 
+  shake: boolean = false;
+
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  picture: any;
+
+  closeResult: string;
+
   constructor(
+    private modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
     private userFirebaseService: UserFirebaseService,
     private conversationService: ConversationService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private angularFireStorage: AngularFireStorage,
   ) {
     this.friendId = this.activatedRoute.snapshot.params['uid'];
     console.log(this.friendId);
@@ -48,6 +61,22 @@ export class ConversationComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+  }
+  imageLoaded() {
+    // show cropper
+  }
+  cropperReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
+    // show message
   }
 
   sendMessage() {
@@ -77,6 +106,28 @@ export class ConversationComponent implements OnInit {
     this.doZumbido();
   }
 
+  sendImage() {
+    const currentPictureId = Date.now();
+    const pictures = this.angularFireStorage.ref('conversations/pictures/' + this.conversation_id + '/' + currentPictureId + '.jpg').putString(this.croppedImage, 'data_url');
+    pictures.then((result) => {
+      this.picture = this.angularFireStorage.ref('conversations/pictures/' + this.conversation_id + '/' + currentPictureId + '.jpg').getDownloadURL();
+      this.picture.subscribe((image: string) => {
+        const message = {
+          uid: this.conversation_id,
+          timestamp: Date.now(),
+          text: image,
+          sender: this.user.uid,
+          receiver: this.friend.uid,
+          type: 'image'
+        };
+        this.conversationService.createConversation(message).then(() => { });
+        this.croppedImage = ''
+      });
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
+
   doZumbido() {
     const audio = new Audio('assets/sound/zumbido.m4a');
     audio.play();
@@ -84,6 +135,11 @@ export class ConversationComponent implements OnInit {
     window.setTimeout(() => {
       this.shake = false;
     }, 1000);
+  }
+
+  doNewMessage() {
+    const audio = new Audio('assets/sound/new_message.m4a');
+    audio.play();
   }
 
   getConversation() {
@@ -94,8 +150,9 @@ export class ConversationComponent implements OnInit {
           message.seen = true;
           this.conversationService.editConversation(message);
           if (message.type == 'text') {
-            const audio = new Audio('assets/sound/new_message.m4a');
-            audio.play();
+            this.doNewMessage();
+          } else if (message.type == 'image') {
+            this.doNewMessage();
           } else if (message.type == 'zumbido') {
             this.doZumbido();
           }
@@ -112,6 +169,24 @@ export class ConversationComponent implements OnInit {
       return this.friend.nick;
     } else {
       return this.user.nick;
+    }
+  }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
     }
   }
 }

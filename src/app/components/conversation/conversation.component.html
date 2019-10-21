@@ -1,3 +1,34 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Subir Imagen</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-auto">
+        <label class="custom-file-upload mr-5">
+          <input type="file" (change)="fileChangeEvent($event)" />
+          Seleccionar Imagen
+        </label>
+
+        <img [src]="croppedImage || 'assets/img/generic_avatar.png' " class="avatarImage img-fluid" />
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
+    <div class="col-md-12">
+    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
+                   [resizeToWidth]="128"format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                   (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()" ></image-cropper>
+    </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="sendImage(); modal.close('Save click') ">Enviar Imagen</button>
+  </div>
+</ng-template>
+
 <div class="conversationContainer bluewhitebg" [ngClass]="{'shaker': shake}">
   <div class="row">
     <div class="col-sm-3 maxwi300">
@@ -22,7 +53,8 @@
       <div class="vh55 overscroll pabo10" id="messageArea">
         <div class="messageGroup" *ngFor="let m of conversation">
           <b>{{getUserNickById(m.sender)}}</b> dice: <br />
-          <span>{{m.text}}</span>
+          <span *ngIf="m.type=='text'">{{m.text}}</span>
+          <img *ngIf="m.type=='image'" src="{{m.text}}" />
         </div>
       </div>
       <div class="messageControlsContainer">
@@ -41,10 +73,7 @@
           </div>
 
           <a class="btn btn-primary btn-sm marri10" accept="image/*">Enviar</a>
-          <label class="custom-file-upload">
-            <input type="file">
-            <i name="image"></i> Seleccionar Imagen
-          </label>
+          <a (click)="open(content)"class="btn btn-warning btn-sm marri10">Subir imagen</a>
         </div>
       </div>
     </div>

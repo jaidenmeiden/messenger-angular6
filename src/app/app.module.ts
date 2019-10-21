@@ -56,7 +56,7 @@ const appRoutes: Routes = [
     AngularFireDatabaseModule,
     ImageCropperModule,
     NgbModule,
-    BootstrapModalModule
+    BootstrapModalModule.forRoot({container: document.body})
   ],
   providers: [],
   bootstrap: [AppComponent]

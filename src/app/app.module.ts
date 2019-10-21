@@ -10,6 +10,7 @@ import {AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 import {ImageCropperModule} from "ngx-image-cropper";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {BootstrapModalModule} from "ng2-bootstrap-modal";
 
 // Se importan pipes
 import { SearchPipe } from './pipes/search.pipe';
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     AngularFireDatabaseModule,
     ImageCropperModule,
-    NgbModule
+    NgbModule,
+    BootstrapModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

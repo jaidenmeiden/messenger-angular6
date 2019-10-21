@@ -5,15 +5,8 @@
       <a class="closeButton" (click)="close()">x</a>
     </div>
     <div class="modal-body" style="height: auto">
+      <app-contact [uid]="currentRequest.sender" [opcion]="2" ></app-contact>
       <div class="row">
-        <div class="col-md-3">
-          <img src="assets/img/generic_avatar.png" class="img-fluid" />
-        </div>
-        <div class="col-md-9">
-          <b>{{currentRequest.sender}}</b>
-          <small>Te ha enviado esta solicitud</small>
-        </div>
-        <hr />
         <div class="col-md-12">
           <h4>Deseas agregar a esta persona?</h4>
           <br />

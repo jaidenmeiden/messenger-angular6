@@ -26,6 +26,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ConversationComponent } from './components/conversation/conversation.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { RequestComponent } from './components/modals/request/request.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 // Rutas
 const appRoutes: Routes = [
@@ -45,7 +46,8 @@ const appRoutes: Routes = [
     ProfileComponent,
     ConversationComponent,
     MenuComponent,
-    RequestComponent
+    RequestComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

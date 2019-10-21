@@ -25,6 +25,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ConversationComponent } from './components/conversation/conversation.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { RequestComponent } from './components/modals/request/request.component';
 
 // Rutas
 const appRoutes: Routes = [
@@ -43,7 +44,8 @@ const appRoutes: Routes = [
     LoginComponent,
     ProfileComponent,
     ConversationComponent,
-    MenuComponent
+    MenuComponent,
+    RequestComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +61,7 @@ const appRoutes: Routes = [
     BootstrapModalModule.forRoot({container: document.body})
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [RequestComponent]
 })
 export class AppModule { }

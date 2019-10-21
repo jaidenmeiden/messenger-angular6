@@ -32,20 +32,38 @@
         <input type="text" class="form-control" placeholder="Buscar un contacto o un número..." [(ngModel)]="query">
       </div>
       <div class="col-md-auto">
-        <img src="assets/img/logo_live_add.png" class="icon" (click)="open(content)"  />
+        <img (click)="open(content)" src="assets/img/logo_live_add.png" class="icon" alt="">
       </div>
     </div>
     <hr />
-    <div class="row" *ngIf="users">
+    <div class="row" *ngIf="friends">
       <div class="col-md-12">
         <span name="chevron-down"></span>
-        <b *ngIf="users">Amigos ({{users.length}}/{{users.length}})</b>
+        <b *ngIf="friends">Amigos ({{friends.length}}/{{friends.length}})</b>
       </div>
-      <div class="col-md-12 contact-list-item" routerLink="/conversation/{{user.uid}}" *ngFor="let user of users | search: query">
-        <img src="assets/img/logo_live_{{user.status || 'offline'}}.png" class="status">
-        <b>{{user.nick}}</b>
-        <small *ngIf="user.subnick"> - {{user.subnick}}</small>
+      <div class="col-md-12 contact-list-item" routerLink="/conversation/{{friend.uid}}" *ngFor="let friend of friends | search: query">
+        <img src="assets/img/logo_live_{{friend.status || 'offline'}}.png" class="status">
+        <b>{{friend.nick}}</b>
+        <small *ngIf="friend.subnick"> - {{friend.subnick}}</small>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Agregar Amigo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="">
+      <b>Ingresa el email de tu amigo</b>
+      <input type="email" class="form-control" placeholder="Email" [(ngModel)]="friendEmail" (keyup.enter)="sendRequest()">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="sendRequest()">Guardar</button>
+  </div>
+</ng-template>

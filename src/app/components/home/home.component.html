@@ -8,7 +8,7 @@
           </div>
         </div>
         <div class="col">
-          <b>Eduardo</b>
+          <b *ngIf="user">{{user.nick}}</b>
           <div ngbDropdown class="d-inline-block">
             <button class="btn btn-link" id="dropdownBasic1" ngbDropdownToggle>Online</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">

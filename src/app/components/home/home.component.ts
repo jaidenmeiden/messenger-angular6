@@ -50,7 +50,10 @@ export class HomeComponent implements OnInit {
   }
   logOut() {
     this.authenticationService.logOut().then(() => {
+      alert('Sesión Cerrada');
       this.router.navigate(['login']);
+    }).catch((error) => {
+      console.log(error);
     });
   }
 
@@ -59,6 +62,7 @@ export class HomeComponent implements OnInit {
     }, (reason) => {
     });
   }
+
   sendRequest() {
     const request = {
       timestamp: Date.now(),

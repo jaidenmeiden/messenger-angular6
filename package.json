@@ -1,13 +1,16 @@
 {
   "name": "platzinger-angular6",
   "version": "0.0.0",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "electron": "ng build && electron .",
+    "electron-aot": "ng build --prod && electron ."
   },
   "private": true,
   "dependencies": {
@@ -24,6 +27,7 @@
     "@ng-bootstrap/ng-bootstrap": "^5.1.1",
     "@types/jquery": "^3.3.31",
     "bootstrap": "4.3.1",
+    "electron": "7.0.0",
     "firebase": "^7.2.1",
     "jquery": "^3.4.1",
     "ng2-bootstrap-modal": "^1.0.1",

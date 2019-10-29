@@ -7,7 +7,7 @@ let win;
 function createWindow() {
   win = new BrowserWindow({width: 800, height: 600});
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'dist/platzinger-angular6/index.html'),
+    pathname: path.join(__dirname, 'dist/messenger-angular6/index.html'),
     protocol: 'file:',
     slashes: true
   }));

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "platzinger-angular6": {
+    "messenger-angular6": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/platzinger-angular6",
+            "outputPath": "dist/messenger-angular6",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -60,18 +60,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "platzinger-angular6:build"
+            "browserTarget": "messenger-angular6:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "platzinger-angular6:build:production"
+              "browserTarget": "messenger-angular6:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "platzinger-angular6:build"
+            "browserTarget": "messenger-angular6:build"
           }
         },
         "test": {
@@ -108,15 +108,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "platzinger-angular6:serve"
+            "devServerTarget": "messenger-angular6:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "platzinger-angular6:serve:production"
+              "devServerTarget": "messenger-angular6:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "platzinger-angular6"
+  "defaultProject": "messenger-angular6"
 }

@@ -29,7 +29,7 @@
     "bootstrap": "4.3.1",
     "electron": "7.0.0",
     "firebase": "^7.2.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "ng2-bootstrap-modal": "^1.0.1",
     "ngx-image-cropper": "^2.0.2",
     "rxjs": "~6.4.0",
